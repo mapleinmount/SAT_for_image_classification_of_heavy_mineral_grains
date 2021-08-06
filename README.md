@@ -1,0 +1,1 @@
+# SAT_for_image_classification_of_heavy_mineral_grains
