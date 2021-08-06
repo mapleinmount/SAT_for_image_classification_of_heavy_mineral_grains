@@ -1,0 +1,40 @@
+DATA:
+  data_root: /deepo_data/GSP/heavy_minerals/data/ChangJiang/cross
+  data_name: all_domain
+  classes: 12
+
+TRAIN:
+  arch: res
+  ignore_label: 2000
+  train_gpu: [0,1,2,3]
+  workers: 4  # data loader workers
+  batch_size: 256  # batch size for training
+  batch_size_val: 128  # batch size for validation during training, memory and speed tradeoff
+  base_lr: 0.01
+  epochs: 200
+  start_epoch: 0
+  step_epochs: [30, 60, 90]
+  label_smoothing: 0.0001
+  mixup_alpha: 
+  scheduler: cosine
+  momentum: 0.9
+  weight_decay: 0.0001
+  manual_seed:
+  print_freq: 10
+  save_freq: 1
+  save_path: /deepo_data/GSP/heavy_minerals/output/dual/resnet18
+  weight:  # path to initial weight (default: none)
+  resume:  # path to latest checkpoint (default: none)
+  evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
+Distributed:
+  dist_url: tcp://127.0.0.1:6789
+  dist_backend: 'nccl'
+  multiprocessing_distributed: False
+  world_size: 1
+  rank: 0
+
+TEST:
+  test_gpu: [0]
+  test_workers: 10
+  batch_size_test: 100
+  model_path: /deepo_data/GSP/heavy_minerals/output/dual/resnet18/model_best.pth
